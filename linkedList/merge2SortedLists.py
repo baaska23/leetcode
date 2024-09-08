@@ -18,4 +18,10 @@ class Solution(object):
             current = current.next
         current.next =l1 or l2
         return dummy.next
+        
+#dummy.next points to the start of the merged list.
+
+#current points to the end of the merged list after merging.
+
+#Returning dummy.next ensures that the merged list starts with the first real node and not the dummy node.
 
