@@ -1,30 +1,33 @@
-class Solution:
-    #in-place
-    def partition(self, arr, low, high):
-        pivot = arr[high]
-        i = low - 1
-        for j in range(low, high):
-            if arr[j] < pivot:
-                i += 1
-                arr[i], arr[j] = arr[j], arr[i]
-        arr[i + 1], arr[high] = arr[high], arr[i + 1]
-        return i + 1
+def partition(arr, low, high):
+    pivot = arr[high]
+    i = low - 1
+    for j in range(low, high):
+        if arr[j] <= pivot:
+            i += 1
+            arr[i], arr[j] = arr[j], arr[i]
+    arr[i + 1], arr[high] = arr[high], arr[i + 1]
+    return i + 1
 
-    def quickSort(self, arr, low, high):
-        if low < high:
-            pi = self.partition(arr, low, high)
-            self.quickSort(arr, low, pi - 1)
-            self.quickSort(arr, pi + 1, high)
+def quickSort(arr, low, high):
+    if low < high:
+        pi = partition(arr, low, high)
+        quickSort(arr, low, pi - 1)
+        quickSort(arr, pi + 1, high)
+
+arr = [10, 7, 8, 9, 1, 5]
+n = len(arr)
+quickSort(arr, 0, n - 1)
+print("Sorted array:", arr)
+
+def quickSort2(arr):
+    if len(arr) <= 1:
         return arr
-    
-    #not in-place
-    def quickSort2(self, arr):
-        pivot = arr[0]
-        left = []
-        right = []
-        for x in arr[1:]:
-            if x < pivot:
-                left.append(x)
-            else:
-                right.append(x)
-        return self.quickSort2(left) + [pivot] + self.quickSort2(right)
+    pivot = arr[len(arr) // 2]
+    left = [x for x in arr if x < pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+    return quickSort(left) + middle + quickSort(right)
+
+arr = [10, 7, 8, 9, 1, 5]
+sorted_arr = quickSort2(arr)
+print("Sorted array:", sorted_arr)
